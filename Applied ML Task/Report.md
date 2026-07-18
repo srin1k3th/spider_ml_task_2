@@ -1,6 +1,4 @@
-# MedBridge — Design Document
-
-## Design Questions
+# Design Choices behind MedBridge
 
 ### 1. How will relevant information be retrieved efficiently?
 
