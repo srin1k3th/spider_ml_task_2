@@ -15,7 +15,7 @@ In a plain network, backprop to an early layer multiplies local derivatives acro
 Depth increases representational capacity, but two separate costs work against "deeper is always better":
 
 1. **Degradation problem** (addressed above) : Mostly resolved by residual connections, so a ResNet-style network doesn't suffer training-accuracy collapse at depths where a plain network might.
-2. **Capacity vs. dataset size** — more layers means more parameters, which raises overfitting risk relative to a fixed-size dataset. CIFAR-10's 50k training images (40k after our validation split) is small by deep learning standards. A deeper/wider network than necessary risks memorizing training-set specifics rather than learning generalizable features.
+2. **Capacity vs. dataset size** : More layers means more parameters, which raises overfitting risk relative to a fixed-size dataset. CIFAR-10's 50k training images (40k after our validation split) is small by deep learning standards. A deeper/wider network than necessary risks memorizing training-set specifics rather than learning generalizable features.
 
 
 ## Challenges encountered during implementation
