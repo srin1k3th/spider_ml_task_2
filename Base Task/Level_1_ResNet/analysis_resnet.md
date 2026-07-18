@@ -21,6 +21,6 @@ Depth increases representational capacity, but two separate costs work against "
 ## Challenges encountered during implementation
 
 The main challenge I faced here was about runtime and some syntax errors.
-**Small batch size (20) causing painfully slow training on a T4 GPU.** Small batches underuse GPU parallelism due to per-batch launch limits.
+**Small batch size (20) caused a painfully slow training on a T4 GPU.** Small batches underuse GPU parallelism due to per-batch launch limits.
 
 On the actual ResNet code itself, the main design challenge was making the downsample/projection path trigger only exactly when needed (`stride != 1 or in_channels != out_channels`), so dimension mismatches between the main path and the skip path are resolved properly.
