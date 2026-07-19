@@ -1,5 +1,3 @@
-# Transformer Analysis
-
 ## Why Attention Helps Sequence Modeling
 
 A standard recurrent network reads a sequence one step at a time. It must keep all past information in a single hidden state. When the sequence is long, early information can become weak or lost. This problem is known as the long-range dependency problem.

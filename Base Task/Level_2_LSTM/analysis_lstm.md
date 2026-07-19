@@ -1,5 +1,3 @@
-# LSTM Analysis
-
 ## The Role of Each Gate
 
 An LSTM cell has three gates. Each gate controls how information flows through the cell.
@@ -49,7 +47,7 @@ However, LSTMs can still show instability in some cases:
 - Very long sequences (more than 500 steps) can still cause gradient issues, even with the gated design.
 - Poor weight initialization can cause slow convergence or training failure.
 
-Common remedies include learning rate warmup, weight decay, and careful initialization of the forget gate bias (usually set to 1.0 so the gate starts open).
+Common solutions, which I used in the notebook's implementation too, are learning rate warmup, weight decay, and careful initialization of the forget gate bias to 1.
 
 ## Sequence Length Considerations
 
@@ -63,10 +61,7 @@ A longer sequence does not always improve accuracy. If the relevant patterns exi
 
 ## Forecasting Challenges
 
-Time-series forecasting with LSTMs presents several practical challenges:
-
 - **Non-stationary data.** Real-world data changes its statistical properties over time. The patterns the model learns from historical data may not hold in the future. Normalization and periodic retraining help reduce this problem.
 - **Multi-step prediction.** When the model must predict many future steps, errors can accumulate. Each predicted step depends on the previous predictions. Small errors in early steps grow larger in later steps.
-- **External factors.** Weather, economic events, and other external factors can cause sudden changes. The model cannot predict these events from historical patterns alone. You must include relevant external features as inputs.
-- **Overfitting.** An LSTM with too many parameters can memorize the training data. It then performs poorly on new data. Dropout, weight decay, and early stopping help prevent this.
-- **Evaluation difficulty.** Standard metrics like MSE can hide poor performance on extreme values. The model may predict the average trend well but miss peaks and valleys. You should inspect individual predictions, not only aggregate metrics.
+- **Overfitting.** An LSTM with too many parameters can memorize the training data. It then performs poorly on new data. Overfitting happened during my implementation as well, which was fixed by adding weight decay and dropout between stacked layers.
+- **Evaluation difficulty.** Standard metrics like MSE can hide poor performance on extreme values. The model may predict the average trend well but miss peaks and valleys. Even though initially I got decent loss of ~0.1, the predicted v/s actual graphs looked absymal. After taking multifeature input data this was fixed.
