@@ -1,5 +1,3 @@
-# Healthcare RAG Assistant — Architecture
-
 ```mermaid
 flowchart TD
     A["User Query<br/>health question"]:::general --> B["Safety Check<br/>emergency / unsafe"]:::safety
