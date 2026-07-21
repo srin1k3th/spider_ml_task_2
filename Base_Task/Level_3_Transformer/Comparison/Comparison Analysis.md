@@ -27,8 +27,6 @@ The error threshold table confirms this pattern:
 | > 5°C | 2,633 | 2,570 |
 | > 6°C | 1,084 | 1,123 |
 
-The Transformer produced fewer errors above each threshold up to 5°C. At the > 6°C threshold, the LSTM had slightly fewer extreme errors (1,084 vs 1,123). This suggests that the Transformer reduces moderate errors more effectively, but a small number of its worst predictions can be more severe.
-
 ## Long-Range Dependency Handling
 
 The task requires the model to take 72 hours of input and predict the next 12 hours. This means the model must connect patterns across a 72-step window.
@@ -41,14 +39,14 @@ The worst-case MAE difference (9.97°C vs 7.69°C) supports this theory. Difficu
 
 ## Runtime
 
-The LSTM took approximately 17 minutes to train for 25 epochs. The Transformer took approximately 2 minutes for the same 25 epochs. The Transformer was roughly 8.5 times faster.
+The LSTM took approximately 17 minutes to train for 25 epochs. The Transformer took approximately 2 minutes for the same 25 epochs. The Transformer was around 8.5 times faster.
 
 This difference comes from how each architecture processes the input sequence:
 
 - **LSTM**: It must process each time step in order. The output of step *t* depends on the output of step *t−1*. This sequential dependency prevents the GPU from computing all steps at the same time. The GPU cores sit idle while they wait for each step to finish.
 - **Transformer**: It processes all time steps in parallel. The self-attention mechanism computes relationships between all positions in a single matrix operation. This fully uses the parallel compute capacity of the GPU.
 
-The 8.5x speed advantage is significant. It means the Transformer can train on larger datasets or run more experiments in the same amount of time.
+The 8.5x speed advantage is significant, because it means the Transformer can train on larger datasets or run more experiments in the same amount of time.
 
 ## Memory Usage
 
@@ -115,7 +113,3 @@ Despite the less stable training, the Transformer achieved better test metrics. 
 - Quadratic memory scaling. For much longer sequences, the attention matrices would consume significantly more memory.
 - Requires positional encoding. The model has no built-in sense of order. It depends on the sinusoidal positional encoding to understand time step positions.
 - More parameters. The query, key, value projections and multi-head structure add complexity.
-
-### Summary
-
-For this 72→12 hour temperature forecasting task, the Transformer was the better choice. It trained faster, produced better predictions, and handled difficult samples more robustly. The LSTM offered more stable training but could not match the Transformer on accuracy or speed. For tasks with much longer sequences and tight memory constraints, the LSTM could still be the more practical option.
